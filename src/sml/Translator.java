@@ -92,6 +92,10 @@ public final class Translator {
                 String s = scan();
                 return new JnzInstruction(label, Register.valueOf(r), s);
             }
+            case OutInstruction.OP_CODE -> {
+                String s = scan();
+                return new OutInstruction(label, Register.valueOf(s));
+            }
 
             // TODO: add code for all other types of instructions
 
