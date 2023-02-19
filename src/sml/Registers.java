@@ -3,12 +3,12 @@ package sml;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * This class represents registers that store the instructions used in the program.
  *
- * @author ...
+ * @author Clare Melvin
  */
+
 public final class Registers {
     private final Map<Register, Integer> registers = new HashMap<>();
 

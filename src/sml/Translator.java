@@ -11,11 +11,9 @@ import java.util.Scanner;
 import static sml.Registers.Register;
 
 /**
- * This class ....
- * <p>
- * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
+ * This class translates the program instructions to their internal form, to allow the instructions to be processed.
  *
- * @author ...
+ * @author Clare Melvin
  */
 public final class Translator {
 
@@ -101,8 +99,6 @@ public final class Translator {
                 String s = scan();
                 return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-
-            // TODO: add code for all other types of instructions
 
             // TODO: Then, replace the switch by using the Reflection API
 

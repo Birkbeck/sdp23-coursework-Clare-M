@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
 /**
- *
- * @author ...
+ * This class represents Labels. Labels are used in the SML language as tags associated with instructions, these
+ * instructions can then be found from the given label.
+ * @author Clare Melvin
  */
 public final class Labels {
 	private final Map<String, Integer> labels = new HashMap<>();

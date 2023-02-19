@@ -1,11 +1,10 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * Represents an abstract instruction.
+ * Represents an abstract instruction. Instructions used in the SML (add, sub etc.) should extend this and implement
+ * the code necessary to achieve the relevant operation.
  *
- * @author ...
+ * @author Clare Melvin
  */
 public abstract class Instruction {
 	protected final String label;
