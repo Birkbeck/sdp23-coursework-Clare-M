@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class stores the value x into register r.
  * @author Clare Melvin
@@ -39,5 +41,10 @@ public class MovInstruction extends Instruction {
     @Override
     public boolean equals(Object o) {
         return o instanceof MovInstruction;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inputInt, source);
     }
 }

@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class implements the jnz command, which checks the content of register r, and assigns statement with label L
  * to be the next statement to be executed if the content of r is non-zero.
@@ -45,5 +47,10 @@ public class JnzInstruction extends Instruction {
     @Override
     public boolean equals(Object o) {
         return o instanceof JnzInstruction;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(result, testInput);
     }
 }

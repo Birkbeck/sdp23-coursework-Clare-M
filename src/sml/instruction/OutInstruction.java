@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class prints the contents of the given register.
  * @author Clare Melvin
@@ -35,5 +37,10 @@ public class OutInstruction extends Instruction {
     @Override
     public boolean equals(Object o) {
         return o instanceof OutInstruction;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source);
     }
 }

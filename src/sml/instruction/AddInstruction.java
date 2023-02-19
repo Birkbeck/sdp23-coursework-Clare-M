@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class adds the contents of two registers (source and result) and stores the sum in the result register.
  * @author Clare Melvin
@@ -37,5 +39,10 @@ public class AddInstruction extends Instruction {
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof AddInstruction;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(result, source);
 	}
 }

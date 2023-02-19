@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class multiplies the contents of two registers (source and result) and stores the product in the
  * result register.
@@ -38,5 +40,10 @@ public class MulInstruction extends Instruction {
     @Override
     public boolean equals(Object o) {
         return o instanceof MulInstruction;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(result, source);
     }
 }

@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 /**
  * This class divides (with Java integer division) the contents of two registers (source and result) and stores the output in the result register.
  * Java integer division is used, therefore the result is an integer.
@@ -38,5 +40,10 @@ public class DivInstruction extends Instruction {
     @Override
     public boolean equals(Object o) {
         return o instanceof DivInstruction;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(result, source);
     }
 }
