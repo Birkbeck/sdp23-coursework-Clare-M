@@ -34,4 +34,9 @@ public class MulInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + source;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof MulInstruction;
+    }
 }

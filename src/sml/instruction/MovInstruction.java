@@ -35,4 +35,9 @@ public class MovInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + source + " " + inputInt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof MovInstruction;
+    }
 }

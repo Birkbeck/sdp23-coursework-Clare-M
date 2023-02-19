@@ -47,10 +47,14 @@ public abstract class Instruction {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
 
-	// TODO: What does abstract in the declaration below mean?
-	//       (Write a short explanation.)
+	// Abstract method to allow subclasses to provide their own implementation. This is used to store the instruction
+	// in the program as a string.
 	@Override
 	public abstract String toString();
 
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	@Override
+	public abstract boolean equals(Object o);
+
+
 }

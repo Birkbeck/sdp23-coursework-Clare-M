@@ -31,4 +31,9 @@ public class OutInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + source;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof OutInstruction;
+    }
 }

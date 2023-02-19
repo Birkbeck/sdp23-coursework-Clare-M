@@ -41,4 +41,9 @@ public class JnzInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + testInput;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof JnzInstruction;
+    }
 }
