@@ -4,10 +4,10 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class multiplies the contents of two registers (source and result) and stores the product in the
+ * result register.
+ * @author Clare Melvin
  */
 
 public class MulInstruction extends Instruction {

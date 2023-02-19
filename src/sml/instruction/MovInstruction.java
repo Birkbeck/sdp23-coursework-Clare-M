@@ -4,10 +4,9 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class stores the value x into register r.
+ * @author Clare Melvin
  */
 
 public class MovInstruction extends Instruction {

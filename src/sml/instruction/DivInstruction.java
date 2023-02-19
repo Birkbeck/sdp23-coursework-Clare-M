@@ -4,10 +4,10 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class divides (with Java integer division) the contents of two registers (source and result) and stores the output in the result register.
+ * Java integer division is used, therefore the result is an integer.
+ * @author Clare Melvin
  */
 
 public class DivInstruction extends Instruction {

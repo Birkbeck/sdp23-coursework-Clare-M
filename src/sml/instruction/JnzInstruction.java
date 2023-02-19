@@ -4,10 +4,10 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class implements the jnz command, which checks the content of register r, and assigns statement with label L
+ * to be the next statement to be executed if the content of r is non-zero.
+ * @author Clare Melvin
  */
 
 public class JnzInstruction extends Instruction {
