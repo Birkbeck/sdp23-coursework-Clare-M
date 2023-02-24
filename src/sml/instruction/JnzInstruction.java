@@ -15,22 +15,20 @@ import java.util.Objects;
 public class JnzInstruction extends Instruction {
     private final RegisterName result;
 
-    private final String testInput;
+    private final String labelString;
 
     public static final String OP_CODE = "jnz";
 
-    public JnzInstruction(String label, RegisterName result, String testInput) {
+    public JnzInstruction(String label, RegisterName result, String labelString) {
         super(label, OP_CODE);
         this.result = result;
-        this.testInput = testInput;
+        this.labelString = labelString;
     }
 
     @Override
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
-        int value2 = m.getLabels().getAddress(testInput);
-        System.out.println("PRINTING FROM JNZ INSTRUCTION");
-        System.out.println(value2);
+        int value2 = m.getLabels().getAddress(labelString);
         // This should return the 'getAddress' number, if the register content is non-zero.
         if (value1 != 0){
             return value2;
@@ -41,7 +39,7 @@ public class JnzInstruction extends Instruction {
 
     @Override
     public String toString() {
-        return getLabelString() + getOpcode() + " " + result + " " + testInput;
+        return getLabelString() + getOpcode() + " " + result + " " + labelString;
     }
 
     @Override
@@ -51,6 +49,6 @@ public class JnzInstruction extends Instruction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(result, testInput);
+        return Objects.hash(result, labelString);
     }
 }
