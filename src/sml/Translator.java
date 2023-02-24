@@ -30,7 +30,7 @@ public final class Translator {
     // prog (the program)
     // return "no errors were detected"
 
-    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
+    public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException, Labels.IncorrectLabelException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
             program.clear();
@@ -43,7 +43,14 @@ public final class Translator {
                 Instruction instruction = getInstruction(label);
                 if (instruction != null) {
                     if (label != null)
-                        labels.addLabel(label, program.size());
+                        try {
+                            labels.addLabel(label, program.size());
+                        } catch (Labels.IncorrectLabelException e) {
+                            System.out.println("Error:" + e.getMessage());
+                            throw e;
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     program.add(instruction);
                 }
             }

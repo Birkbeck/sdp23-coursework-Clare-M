@@ -10,6 +10,7 @@ import java.util.Objects;
  * @author Clare Melvin
  */
 public final class Labels {
+	public static Class<? extends Throwable> IncorrectLabelException;
 	private final Map<String, Integer> labels = new HashMap<>();
 
 	/**
@@ -18,9 +19,14 @@ public final class Labels {
 	 * @param label the label
 	 * @param address the address the label refers to
 	 */
-	public void addLabel(String label, int address) {
+	public void addLabel(String label, int address) throws Exception {
 		Objects.requireNonNull(label);
 		// TODO: Add a check that there are no label duplicates.
+		int labelIndex = getAddress(label);
+		if (labelIndex != -1) {
+			//System.out.println("Label already exists, a duplicate cannot be added");
+			throw new IncorrectLabelException("Duplicate label cannot be added");
+		}
 		labels.put(label, address);
 	}
 
@@ -34,7 +40,16 @@ public final class Labels {
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
 		//       Add code to deal with non-existent labels.
-		return labels.get(label);
+//		if (labels.get(label) == null){
+//			return -1;
+//		}
+		try {
+			return labels.get(label);
+		} catch (NullPointerException e) {
+			System.out.println("The label " + label + " was not found");
+			//throw new Exception("The label was not found so an error was thrown");
+		}
+		return -1;
 	}
 
 	/**
@@ -56,5 +71,11 @@ public final class Labels {
 	 */
 	public void reset() {
 		labels.clear();
+	}
+
+	public class IncorrectLabelException extends Exception {
+		public IncorrectLabelException(String message) {
+			super(message);
+		}
 	}
 }
