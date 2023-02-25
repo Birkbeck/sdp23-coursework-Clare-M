@@ -30,9 +30,14 @@ public class JnzInstruction extends Instruction {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getLabels().getAddress(labelString);
         // This should return the 'getAddress' number, if the register content is non-zero.
-        if (value1 != 0){
+        if (value1 != 0 && value2 != 0){
             return value2;
-        } else {
+        }
+        // TODO: Adding NonExistentLabelException is a breaking change. Confirm if this should be defined here or in the superclass before implementing.
+        //else if (value2 == 0) {
+        //    throw new NonExistentLabelException("The label" + labelString + "does not exist. Therefore command jnz cannot be executed.");
+        //}
+        else {
             return NORMAL_PROGRAM_COUNTER_UPDATE;
         }
     }

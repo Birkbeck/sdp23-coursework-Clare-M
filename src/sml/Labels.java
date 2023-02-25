@@ -22,11 +22,10 @@ public final class Labels {
 	 */
 	public void addLabel(String label, int address) throws Exception {
 		Objects.requireNonNull(label);
-		// TODO: Add a check that there are no label duplicates.
 		int labelIndex = getAddress(label);
+		// getAddress will output -1 if the label does not exist.
 		if (labelIndex != -1) {
-			//System.out.println("Label already exists, a duplicate cannot be added");
-			throw new IncorrectLabelException("Duplicate label cannot be added");
+			throw new IncorrectLabelException("Duplicate label cannot be added, label " + label + " already exists.");
 		}
 		labels.put(label, address);
 	}
@@ -38,19 +37,12 @@ public final class Labels {
 	 * @return the address the label refers to
 	 */
 	public int getAddress(String label) {
-		// TODO: Where can NullPointerException be thrown here?
-		//       (Write an explanation.)
-		//       Add code to deal with non-existent labels.
-//		if (labels.get(label) == null){
-//			return -1;
-//		}
+		// NullPointerException will be thrown where the label doesn't exist. This is handled by returning -1.
 		try {
 			return labels.get(label);
 		} catch (NullPointerException e) {
-			System.out.println("The label " + label + " was not found");
-			//throw new Exception("The label was not found so an error was thrown");
+			return -1;
 		}
-		return -1;
 	}
 
 	/**
