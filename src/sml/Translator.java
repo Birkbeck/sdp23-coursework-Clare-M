@@ -1,9 +1,10 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
@@ -71,50 +72,34 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        switch (opcode) {
-            case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case MovInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MovInstruction(label, Register.valueOf(r), Integer.parseInt(s));
-            }
-            case MulInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case SubInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case JnzInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new JnzInstruction(label, Register.valueOf(r), s);
-            }
-            case OutInstruction.OP_CODE -> {
-                String s = scan();
-                return new OutInstruction(label, Register.valueOf(s));
-            }
-            case DivInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
+        // TODO: Next, use dependency injection to allow this machine class
 
-            // TODO: Then, replace the switch by using the Reflection API
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-
-            default -> {
-                System.out.println("Unknown instruction: " + opcode);
+        String opcodePrefix = opcode.substring(0, 1).toUpperCase() + opcode.substring(1);
+        Class<?> c;
+        try {
+            c = Class.forName("sml.instruction." + opcodePrefix + "Instruction");
+            String r = scan();
+            String s = scan();
+            Constructor<?>[] constructors = c.getDeclaredConstructors();
+            for (Constructor<?> constructor : constructors) {
+                Class<?>[] parameterTypes = constructor.getParameterTypes();
+                Constructor<?> con = c.getConstructor(parameterTypes);
+                Object[] args = null;
+                // Determine which arguments are needed, based on parameter types.
+                if (parameterTypes.length == 2) {
+                    args = new Object[] {label, Register.valueOf(r)};
+                } else if (parameterTypes[2] == int.class) {
+                    args = new Object[] {label, Register.valueOf(r), Integer.parseInt(s)};
+                } else if (parameterTypes[2] == RegisterName.class) {
+                    args = new Object[] {label, Register.valueOf(r), Register.valueOf(s)};
+                } else if (parameterTypes[2] == String.class) {
+                    args = new Object[] {label, Register.valueOf(r), s};
+                }
+                return (Instruction) con.newInstance(args);
             }
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            System.out.println(e);
         }
         return null;
     }
