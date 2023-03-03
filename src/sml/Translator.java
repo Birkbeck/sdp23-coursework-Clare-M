@@ -1,5 +1,8 @@
 package sml;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +73,9 @@ public final class Translator {
         String r = scan();
         String s = scan();
 
-        SmlInstructionFactory factory = new SmlInstructionFactory();
+        // Load the beans xml file from the resources folder.
+        BeanFactory context = new ClassPathXmlApplicationContext("/beans.xml");
+        SmlInstructionFactory factory = (SmlInstructionFactory) context.getBean("instructionFactory");
         Instruction instruction = factory.createInstruction(opcode, r, s, label);
 
         return instruction;

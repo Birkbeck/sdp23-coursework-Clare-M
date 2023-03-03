@@ -48,4 +48,7 @@ public class SmlInstructionFactory implements InstructionFactory {
 
         return line;
     }
+
+    public void setRegisters(String registers) {
+    }
 }
