@@ -2,6 +2,7 @@ package sml.instruction;
 
 import sml.Instruction;
 import sml.Machine;
+import sml.NonExistentLabelException;
 import sml.RegisterName;
 
 import java.util.Objects;
@@ -26,17 +27,17 @@ public class JnzInstruction extends Instruction {
     }
 
     @Override
-    public int execute(Machine m) {
+    public int execute(Machine m) throws NonExistentLabelException {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getLabels().getAddress(labelString);
         // This should return the 'getAddress' number, if the register content is non-zero.
-        if (value1 != 0 && value2 != 0){
+        if (value1 != 0 && value2 != -1){
             return value2;
         }
-        // TODO: Adding NonExistentLabelException is a breaking change. Confirm if this should be defined here or in the superclass before implementing.
-        //else if (value2 == 0) {
-        //    throw new NonExistentLabelException("The label" + labelString + "does not exist. Therefore command jnz cannot be executed.");
-        //}
+        // value2 is -1 if the label does not exist
+        else if (value2 == -1) {
+            throw new NonExistentLabelException("The label " + labelString + " does not exist. Therefore command jnz cannot be executed.");
+        }
         else {
             return NORMAL_PROGRAM_COUNTER_UPDATE;
         }

@@ -1,5 +1,7 @@
 package sml;
 
+import sml.NonExistentLabelException;
+
 /**
  * Represents an abstract instruction. Instructions used in the SML (add, sub etc.) should extend this and implement
  * the code necessary to achieve the relevant operation.
@@ -41,7 +43,7 @@ public abstract class Instruction {
 	 *          the instruction with the next address is to be executed
 	 */
 
-	public abstract int execute(Machine machine);
+	public abstract int execute(Machine machine) throws NonExistentLabelException;
 
 	protected String getLabelString() {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
@@ -58,4 +60,4 @@ public abstract class Instruction {
 	@Override
 	public abstract int hashCode();
 
-}
+	}

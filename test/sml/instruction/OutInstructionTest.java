@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import sml.Instruction;
 import sml.Machine;
+import sml.NonExistentLabelException;
 import sml.Registers;
 
 import static sml.Registers.Register.*;
@@ -29,7 +30,7 @@ class OutInstructionTest {
     }
 
     @Test
-    void executeValid() {
+    void executeValid() throws NonExistentLabelException {
         // TODO: Consider how to test printing functionality programmatically
         registers.set(EAX, 5);
         Instruction instruction = new OutInstruction(null, EAX);

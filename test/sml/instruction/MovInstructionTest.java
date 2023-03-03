@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import sml.Instruction;
 import sml.Machine;
+import sml.NonExistentLabelException;
 import sml.Registers;
 
 import static sml.Registers.Register.*;
@@ -29,7 +30,7 @@ class MovInstructionTest {
     }
 
     @Test
-    void executeValid() {
+    void executeValid() throws NonExistentLabelException {
         Instruction instruction = new MovInstruction(null, EAX, 3);
         instruction.execute(machine);
         Assertions.assertEquals(3, machine.getRegisters().get(EAX));

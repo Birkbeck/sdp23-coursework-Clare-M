@@ -33,7 +33,7 @@ public final class Machine {
 	 * Execute the program in program, beginning at instruction 0.
 	 * Precondition: the program and its labels have been stored properly.
 	 */
-	public void execute() {
+	public void execute() throws NonExistentLabelException {
 		programCounter = 0;
 		registers.clear();
 		while (programCounter < program.size()) {

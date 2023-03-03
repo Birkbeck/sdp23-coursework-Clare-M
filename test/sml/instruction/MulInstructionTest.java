@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import sml.Instruction;
 import sml.Machine;
+import sml.NonExistentLabelException;
 import sml.Registers;
 
 import static sml.Registers.Register.*;
@@ -29,7 +30,7 @@ class MulInstructionTest {
     }
 
     @Test
-    void executeValid() {
+    void executeValid() throws NonExistentLabelException {
         registers.set(EAX, 5);
         registers.set(EBX, 6);
         Instruction instruction = new MulInstruction(null, EAX, EBX);
@@ -38,7 +39,7 @@ class MulInstructionTest {
     }
 
     @Test
-    void executeValidNegative() {
+    void executeValidNegative() throws NonExistentLabelException {
         registers.set(EAX, -5);
         registers.set(EBX, 6);
         Instruction instruction = new MulInstruction(null, EAX, EBX);

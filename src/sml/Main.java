@@ -34,7 +34,7 @@ public class Main {
 		}
 		catch (IOException e) {
 			System.out.println("Error reading the program from " + args[0]);
-		} catch (Labels.IncorrectLabelException e) {
+		} catch (Labels.IncorrectLabelException | NonExistentLabelException e) {
 			throw new RuntimeException(e);
 		}
 	}

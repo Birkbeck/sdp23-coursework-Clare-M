@@ -3,5 +3,5 @@
     mov ECX 1
 f3: mul EBX EAX
     sub EAX ECX
-    jnz EAX f3
+    jnz EAX f2
     out EBX
