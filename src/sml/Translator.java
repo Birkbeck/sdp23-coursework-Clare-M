@@ -2,14 +2,9 @@ package sml;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
-
-import static sml.Registers.Register;
 
 /**
  * This class translates the program instructions to their internal form, to allow the instructions to be processed.
@@ -72,36 +67,13 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        // TODO: Next, use dependency injection to allow this machine class
+        String r = scan();
+        String s = scan();
 
-        String opcodePrefix = opcode.substring(0, 1).toUpperCase() + opcode.substring(1);
-        Class<?> c;
-        try {
-            c = Class.forName("sml.instruction." + opcodePrefix + "Instruction");
-            String r = scan();
-            String s = scan();
-            Constructor<?>[] constructors = c.getDeclaredConstructors();
-            for (Constructor<?> constructor : constructors) {
-                Class<?>[] parameterTypes = constructor.getParameterTypes();
-                Constructor<?> con = c.getConstructor(parameterTypes);
-                Object[] args = null;
-                // Determine which arguments are needed, based on parameter types.
-                if (parameterTypes.length == 2) {
-                    args = new Object[] {label, Register.valueOf(r)};
-                } else if (parameterTypes[2] == int.class) {
-                    args = new Object[] {label, Register.valueOf(r), Integer.parseInt(s)};
-                } else if (parameterTypes[2] == RegisterName.class) {
-                    args = new Object[] {label, Register.valueOf(r), Register.valueOf(s)};
-                } else if (parameterTypes[2] == String.class) {
-                    args = new Object[] {label, Register.valueOf(r), s};
-                }
-                return (Instruction) con.newInstance(args);
-            }
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
-                 InvocationTargetException e) {
-            System.out.println(e);
-        }
-        return null;
+        SmlInstructionFactory factory = new SmlInstructionFactory();
+        Instruction instruction = factory.createInstruction(opcode, r, s, label);
+
+        return instruction;
     }
 
 
